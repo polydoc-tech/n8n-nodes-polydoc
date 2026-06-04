@@ -1,0 +1,72 @@
+{
+	"name": "PolyDoc - Webhook to ZUGFeRD/Factur-X e-invoice",
+	"nodes": [
+		{
+			"parameters": {
+				"httpMethod": "POST",
+				"path": "einvoice",
+				"responseMode": "responseNode",
+				"options": {}
+			},
+			"id": "c1111111-1111-4111-8111-111111111111",
+			"name": "Webhook",
+			"type": "n8n-nodes-base.webhook",
+			"typeVersion": 2,
+			"position": [360, 300],
+			"webhookId": "polydoc-einvoice"
+		},
+		{
+			"parameters": {
+				"operation": "einvoice",
+				"sourceType": "html",
+				"html": "=<h1>Invoice {{ $json.body.invoice.number }}</h1>",
+				"eInvoiceStandard": "zugferd",
+				"eInvoiceProfile": "en16931",
+				"eInvoiceVerify": true,
+				"invoice": "={{ $json.body.invoice }}",
+				"deliveryMode": "download",
+				"binaryPropertyName": "data"
+			},
+			"id": "c2222222-2222-4222-8222-222222222222",
+			"name": "PolyDoc",
+			"type": "n8n-nodes-polydoc.polyDoc",
+			"typeVersion": 1,
+			"position": [600, 300]
+		},
+		{
+			"parameters": {
+				"respondWith": "binary",
+				"options": {}
+			},
+			"id": "c3333333-3333-4333-8333-333333333333",
+			"name": "Return PDF",
+			"type": "n8n-nodes-base.respondToWebhook",
+			"typeVersion": 1.1,
+			"position": [840, 300]
+		},
+		{
+			"parameters": {
+				"content": "## Webhook → compliant e-invoice PDF\n\nPOST an invoice to this webhook and get back a hybrid **ZUGFeRD / Factur-X** PDF/A-3 (human-readable PDF + embedded EN 16931 XML).\n\nExpected body:\n```\n{ \"invoice\": { \"number\": \"INV-1\", \"issueDate\": \"2026-01-31\", \"dueDate\": \"2026-03-02\", \"currencyCode\": \"EUR\", \"seller\": { ... }, \"buyer\": { ... }, \"lines\": [ ... ], \"totalNetAmount\": 20, \"totalTaxAmount\": 3.8, \"totalGrossAmount\": 23.8, \"paymentTerms\": \"Net 30\" } }\n```\n\n1. Add your **PolyDoc API** credential.\n2. Full invoice schema: https://docs.polydoc.tech\n\nNote: PolyDoc generates the compliant document. Transmission (Peppol), archiving and tax-authority reporting are separate.\n\nStart free: https://polydoc.tech/?utm_source=n8n&utm_medium=template&utm_campaign=einvoice",
+				"height": 420,
+				"width": 460
+			},
+			"id": "c4444444-4444-4444-8444-444444444444",
+			"name": "How to use",
+			"type": "n8n-nodes-base.stickyNote",
+			"typeVersion": 1,
+			"position": [360, 540]
+		}
+	],
+	"connections": {
+		"Webhook": {
+			"main": [[{ "node": "PolyDoc", "type": "main", "index": 0 }]]
+		},
+		"PolyDoc": {
+			"main": [[{ "node": "Return PDF", "type": "main", "index": 0 }]]
+		}
+	},
+	"active": false,
+	"settings": { "executionOrder": "v1" },
+	"pinData": {},
+	"meta": {}
+}

@@ -1,0 +1,18 @@
+{
+	"node": "n8n-nodes-base.polyDoc",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": ["Utility", "Marketing"],
+	"resources": {
+		"primaryDocumentation": [
+			{
+				"url": "https://docs.polydoc.tech"
+			}
+		],
+		"credentialDocumentation": [
+			{
+				"url": "https://docs.polydoc.tech"
+			}
+		]
+	}
+}
