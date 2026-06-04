@@ -187,7 +187,10 @@ export async function polyDocApiRequest(
 	const options: IHttpRequestOptions = {
 		method: 'POST' as IHttpRequestMethods,
 		url: `${baseUrl}${endpoint}`,
-		headers: { 'Content-Type': 'application/json' },
+		headers: {
+			'Content-Type': 'application/json',
+			'X-Sandbox': credentials.sandbox ? 'true' : 'false',
+		},
 		returnFullResponse: true,
 	};
 
