@@ -2,7 +2,7 @@
 	"node": "n8n-nodes-base.polyDoc",
 	"nodeVersion": "1.0",
 	"codexVersion": "1.0",
-	"categories": ["Utility", "Marketing"],
+	"categories": ["Utility", "Marketing & Content"],
 	"resources": {
 		"primaryDocumentation": [
 			{
