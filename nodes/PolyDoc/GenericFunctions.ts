@@ -5,6 +5,8 @@ import type {
 	IHttpRequestOptions,
 } from 'n8n-workflow';
 
+export const DEFAULT_BASE_URL = 'https://api.polydoc.tech';
+
 export type PolyDocOperation = 'pdf' | 'screenshot' | 'einvoice';
 export type PolyDocSourceType = 'url' | 'html' | 'template';
 export type PolyDocDeliveryMode = 'download' | 'cloudStorage' | 'webhook';
@@ -179,14 +181,10 @@ export async function polyDocApiRequest(
 	isBinary: boolean,
 ): Promise<{ body: unknown; headers: IDataObject; statusCode: number }> {
 	const credentials = await this.getCredentials('polyDocApi');
-	const baseUrl = ((credentials.baseUrl as string) || 'https://api.polydoc.tech').replace(
-		/\/+$/,
-		'',
-	);
 
 	const options: IHttpRequestOptions = {
 		method: 'POST' as IHttpRequestMethods,
-		url: `${baseUrl}${endpoint}`,
+		url: `${DEFAULT_BASE_URL}${endpoint}`,
 		headers: {
 			'Content-Type': 'application/json',
 			'X-Sandbox': credentials.sandbox ? 'true' : 'false',

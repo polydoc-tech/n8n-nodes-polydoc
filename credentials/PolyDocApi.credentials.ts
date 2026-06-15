@@ -31,13 +31,6 @@ export class PolyDocApi implements ICredentialType {
 			description:
 				'Whether to run conversions in sandbox mode (higher quota, watermarked output). Sends the X-Sandbox header.',
 		},
-		{
-			displayName: 'Base URL',
-			name: 'baseUrl',
-			type: 'string',
-			default: 'https://api.polydoc.tech',
-			description: 'PolyDoc API base URL. Change only for self-hosted or staging environments.',
-		},
 	];
 
 	authenticate: IAuthenticateGeneric = {
@@ -54,7 +47,7 @@ export class PolyDocApi implements ICredentialType {
 	// production quota, regardless of the Sandbox toggle.
 	test: ICredentialTestRequest = {
 		request: {
-			baseURL: '={{$credentials.baseUrl}}',
+			baseURL: 'https://api.polydoc.tech',
 			url: '/screenshot/convert',
 			method: 'POST',
 			headers: {
