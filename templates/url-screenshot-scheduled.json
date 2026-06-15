@@ -1,21 +1,117 @@
 {
-	"name": "PolyDoc - Scheduled URL screenshot",
+	"name": "PolyDoc - Website change monitor (screenshot on change)",
 	"nodes": [
 		{
 			"parameters": {
-				"rule": { "interval": [{ "field": "hours", "hoursInterval": 24 }] }
+				"rule": {
+					"interval": [
+						{
+							"field": "hours",
+							"hoursInterval": 6
+						}
+					]
+				}
 			},
-			"id": "b1111111-1111-4111-8111-111111111111",
-			"name": "Every 24h",
+			"id": "d1111111-1111-4111-8111-111111111111",
+			"name": "Every 6 hours",
 			"type": "n8n-nodes-base.scheduleTrigger",
 			"typeVersion": 1.2,
-			"position": [380, 300]
+			"position": [
+				220,
+				320
+			]
+		},
+		{
+			"parameters": {
+				"assignments": {
+					"assignments": [
+						{
+							"id": "set-url",
+							"name": "url",
+							"value": "https://example.com",
+							"type": "string"
+						}
+					]
+				},
+				"options": {}
+			},
+			"id": "d2222222-2222-4222-8222-222222222222",
+			"name": "Settings",
+			"type": "n8n-nodes-base.set",
+			"typeVersion": 3.4,
+			"position": [
+				440,
+				320
+			]
+		},
+		{
+			"parameters": {
+				"method": "GET",
+				"url": "={{ $json.url }}",
+				"options": {}
+			},
+			"id": "d3333333-3333-4333-8333-333333333333",
+			"name": "Fetch page",
+			"type": "n8n-nodes-base.httpRequest",
+			"typeVersion": 4.2,
+			"position": [
+				660,
+				320
+			]
+		},
+		{
+			"parameters": {
+				"jsCode": "  const res = $input.first().json;\n  const html = res.data ?? (typeof res === 'string' ? res : JSON.stringify(res));\n  const normalized = String(html)\n    .replace(/<script[\\s\\S]*?<\\/script>/gi, '')\n    .replace(/<style[\\s\\S]*?<\\/style>/gi, '')\n    .replace(/<!--[\\s\\S]*?-->/g, '')\n    .replace(/\\s+/g, ' ')\n    .trim();\n\n  // djb2-xor hash: no imports, works in the sandboxed Code node.\n  let hash = 5381;\n  for (let i = 0; i < normalized.length; i++) {\n    hash = ((hash * 33) ^ normalized.charCodeAt(i)) >>> 0;\n  }\n  const current = String(hash);\n\n  const store = $getWorkflowStaticData('global');\n  const previous = store.lastHash;\n  store.lastHash = current;\n\n  return [\n    {\n      json: {\n        url: $('Settings').first().json.url,\n        changed: previous !== current,\n        firstRun: previous === undefined,\n        previousHash: previous ?? null,\n        currentHash: current,\n      },\n    },\n  ];",
+				"mode": "runOnceForAllItems"
+			},
+			"id": "d4444444-4444-4444-8444-444444444444",
+			"name": "Detect change",
+			"type": "n8n-nodes-base.code",
+			"typeVersion": 2,
+			"position": [
+				880,
+				320
+			]
+		},
+		{
+			"parameters": {
+				"conditions": {
+					"options": {
+						"caseSensitive": true,
+						"leftValue": "",
+						"typeValidation": "loose",
+						"version": 2
+					},
+					"conditions": [
+						{
+							"id": "cond-changed",
+							"leftValue": "={{ $json.changed }}",
+							"rightValue": "",
+							"operator": {
+								"type": "boolean",
+								"operation": "true",
+								"singleValue": true
+							}
+						}
+					],
+					"combinator": "and"
+				},
+				"options": {}
+			},
+			"id": "d5555555-5555-4555-8555-555555555555",
+			"name": "Changed?",
+			"type": "n8n-nodes-base.if",
+			"typeVersion": 2.2,
+			"position": [
+				1100,
+				320
+			]
 		},
 		{
 			"parameters": {
 				"operation": "screenshot",
 				"sourceType": "url",
-				"url": "https://example.com",
+				"url": "={{ $json.url }}",
 				"deliveryMode": "download",
 				"binaryPropertyName": "data",
 				"screenshotOptions": {
@@ -24,34 +120,145 @@
 					"viewportWidth": 1280,
 					"viewportHeight": 800
 				},
-				"additionalFields": { "filename": "snapshot.png" }
+				"additionalFields": {
+					"filename": "snapshot.png"
+				}
 			},
-			"id": "b2222222-2222-4222-8222-222222222222",
-			"name": "PolyDoc",
+			"id": "d6666666-6666-4666-8666-666666666666",
+			"name": "Screenshot page",
 			"type": "n8n-nodes-polydoc.polyDoc",
 			"typeVersion": 1,
-			"position": [620, 300]
+			"position": [
+				1340,
+				220
+			]
 		},
 		{
 			"parameters": {
-				"content": "## Scheduled screenshot of any URL\n\n1. Add your **PolyDoc API** credential.\n2. Set the **URL** (or switch Source to HTML / Template).\n3. The PNG arrives in binary field `data` - connect a **Slack**, **S3**, **Google Drive**, or **email** node next to deliver or archive it.\n\nGreat for visual monitoring, social/OG images, and change tracking.\n\nStart free: https://polydoc.tech/?utm_source=n8n&utm_medium=template&utm_campaign=screenshot",
-				"height": 300,
-				"width": 380
+				"fromEmail": "monitor@example.com",
+				"toEmail": "you@example.com",
+				"subject": "=Change detected: {{ $('Detect change').first().json.url }}",
+				"emailFormat": "text",
+				"text": "=The watched page changed since the last check.\n\nURL: {{ $('Detect change').first().json.url }}\n\nThe current full-page screenshot is attached.",
+				"options": {
+					"attachments": "data"
+				}
 			},
-			"id": "b3333333-3333-4333-8333-333333333333",
+			"id": "d7777777-7777-4777-8777-777777777777",
+			"name": "Email screenshot",
+			"type": "n8n-nodes-base.emailSend",
+			"typeVersion": 2.1,
+			"position": [
+				1560,
+				220
+			]
+		},
+		{
+			"parameters": {},
+			"id": "d8888888-8888-4888-8888-888888888888",
+			"name": "No change",
+			"type": "n8n-nodes-base.noOp",
+			"typeVersion": 1,
+			"position": [
+				1340,
+				420
+			]
+		},
+		{
+			"parameters": {
+				"content": "## Website change monitor with screenshots\n\nOn a schedule, fetch a page, detect whether its content changed since the last run, and capture a full-page **PolyDoc screenshot only when it did** (a lightweight HTML poll guards the heavier screenshot, so you do not spend a screenshot on every run). The snapshot is emailed as a PNG.\n\n**Flow**\n1. Schedule trigger (every 6 hours by default)\n2. Settings holds the URL to watch (edit it in one place)\n3. Fetch page pulls the HTML\n4. Detect change hashes the normalized HTML and compares it to the last run (stored in workflow static data)\n5. Changed? routes to the screenshot branch only on a real change\n6. PolyDoc captures the page, then it is emailed as a PNG\n\n**Setup**\n1. Set the **url** in the *Settings* node.\n2. Add your **PolyDoc API** credential on the *Screenshot page* node (key from dashboard.polydoc.tech).\n3. Add an **SMTP** credential on *Email screenshot*, or delete that node and connect Slack / S3 / Google Drive instead.\n\nThe change state persists between **scheduled** runs. A manual test always counts as a first run (changed), so you can see the screenshot branch immediately.\n\nStart free: https://polydoc.tech/?utm_source=n8n&utm_medium=template&utm_campaign=screenshot",
+				"height": 540,
+				"width": 460
+			},
+			"id": "d9999999-9999-4999-8999-999999999999",
 			"name": "How to use",
 			"type": "n8n-nodes-base.stickyNote",
 			"typeVersion": 1,
-			"position": [380, 540]
+			"position": [
+				-360,
+				120
+			]
 		}
 	],
 	"connections": {
-		"Every 24h": {
-			"main": [[{ "node": "PolyDoc", "type": "main", "index": 0 }]]
+		"Every 6 hours": {
+			"main": [
+				[
+					{
+						"node": "Settings",
+						"type": "main",
+						"index": 0
+					}
+				]
+			]
+		},
+		"Settings": {
+			"main": [
+				[
+					{
+						"node": "Fetch page",
+						"type": "main",
+						"index": 0
+					}
+				]
+			]
+		},
+		"Fetch page": {
+			"main": [
+				[
+					{
+						"node": "Detect change",
+						"type": "main",
+						"index": 0
+					}
+				]
+			]
+		},
+		"Detect change": {
+			"main": [
+				[
+					{
+						"node": "Changed?",
+						"type": "main",
+						"index": 0
+					}
+				]
+			]
+		},
+		"Changed?": {
+			"main": [
+				[
+					{
+						"node": "Screenshot page",
+						"type": "main",
+						"index": 0
+					}
+				],
+				[
+					{
+						"node": "No change",
+						"type": "main",
+						"index": 0
+					}
+				]
+			]
+		},
+		"Screenshot page": {
+			"main": [
+				[
+					{
+						"node": "Email screenshot",
+						"type": "main",
+						"index": 0
+					}
+				]
+			]
 		}
 	},
 	"active": false,
-	"settings": { "executionOrder": "v1" },
+	"settings": {
+		"executionOrder": "v1"
+	},
 	"pinData": {},
 	"meta": {}
 }
