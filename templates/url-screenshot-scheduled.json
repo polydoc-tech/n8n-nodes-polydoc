@@ -17,7 +17,7 @@
 			"type": "n8n-nodes-base.scheduleTrigger",
 			"typeVersion": 1.2,
 			"position": [
-				220,
+				240,
 				320
 			]
 		},
@@ -55,7 +55,7 @@
 			"type": "n8n-nodes-base.httpRequest",
 			"typeVersion": 4.2,
 			"position": [
-				660,
+				640,
 				320
 			]
 		},
@@ -69,7 +69,7 @@
 			"type": "n8n-nodes-base.code",
 			"typeVersion": 2,
 			"position": [
-				880,
+				840,
 				320
 			]
 		},
@@ -103,7 +103,7 @@
 			"type": "n8n-nodes-base.if",
 			"typeVersion": 2.2,
 			"position": [
-				1100,
+				1040,
 				320
 			]
 		},
@@ -129,8 +129,8 @@
 			"type": "n8n-nodes-polydoc.polyDoc",
 			"typeVersion": 1,
 			"position": [
-				1340,
-				220
+				1280,
+				320
 			]
 		},
 		{
@@ -149,8 +149,8 @@
 			"type": "n8n-nodes-base.emailSend",
 			"typeVersion": 2.1,
 			"position": [
-				1560,
-				220
+				1480,
+				320
 			]
 		},
 		{
@@ -160,15 +160,15 @@
 			"type": "n8n-nodes-base.noOp",
 			"typeVersion": 1,
 			"position": [
-				1340,
-				420
+				1280,
+				520
 			]
 		},
 		{
 			"parameters": {
 				"content": "## Website change monitor with screenshots\n\n**What it does:** Polls a web page on a schedule, detects whether its content changed since the last run, and captures a full-page PolyDoc screenshot **only when it changed**, so you never spend a screenshot on an unchanged page. The snapshot is emailed to you.\n\n**Who it's for:** Anyone tracking competitor pages, pricing, docs, or status pages who wants a visual record of every change.\n\n### Setup\n1. Set the **url** to watch in the *Settings* node.\n2. Add your **PolyDoc API** credential on *Screenshot page* (get a key at dashboard.polydoc.tech).\n3. Add an **SMTP** credential on *Email screenshot*, or swap it for Slack / S3 / Google Drive.\n\nA manual test always counts as a first run (changed), so the screenshot branch runs right away. Change state then persists between scheduled runs.\n\nStart free: https://polydoc.tech/?utm_source=n8n&utm_medium=template&utm_campaign=screenshot",
-				"height": 360,
-				"width": 1140
+				"height": 320,
+				"width": 1000
 			},
 			"id": "d9999999-9999-4999-8999-999999999999",
 			"name": "Read me first",
@@ -176,14 +176,14 @@
 			"typeVersion": 1,
 			"position": [
 				200,
-				-260
+				-180
 			]
 		},
 		{
 			"parameters": {
 				"content": "## 1. Watch on a schedule\n\nRuns every 6 hours. The URL to watch lives in **Settings**, so you edit it in one place.",
-				"height": 300,
-				"width": 420,
+				"height": 260,
+				"width": 400,
 				"color": 4
 			},
 			"id": "da111111-1111-4111-8111-111111111111",
@@ -191,15 +191,15 @@
 			"type": "n8n-nodes-base.stickyNote",
 			"typeVersion": 1,
 			"position": [
-				180,
-				200
+				200,
+				180
 			]
 		},
 		{
 			"parameters": {
 				"content": "## 2. Detect a real change\n\nFetch the page, strip scripts, styles and whitespace, hash it, and compare to the last run (stored in workflow static data). Only a genuine content change continues.",
-				"height": 300,
-				"width": 660,
+				"height": 260,
+				"width": 620,
 				"color": 5
 			},
 			"id": "db222222-2222-4222-8222-222222222222",
@@ -208,14 +208,14 @@
 			"typeVersion": 1,
 			"position": [
 				620,
-				200
+				180
 			]
 		},
 		{
 			"parameters": {
 				"content": "## 3. Capture & send\n\nPolyDoc renders a full-page PNG of the changed page, which is emailed as an attachment.",
-				"height": 220,
-				"width": 480,
+				"height": 260,
+				"width": 420,
 				"color": 7
 			},
 			"id": "dc333333-3333-4333-8333-333333333333",
@@ -223,14 +223,14 @@
 			"type": "n8n-nodes-base.stickyNote",
 			"typeVersion": 1,
 			"position": [
-				1300,
-				120
+				1260,
+				180
 			]
 		},
 		{
 			"parameters": {
 				"content": "## Nothing changed\n\nNo screenshot is taken. The run ends quietly.",
-				"height": 160,
+				"height": 180,
 				"width": 260,
 				"color": 6
 			},
@@ -239,8 +239,8 @@
 			"type": "n8n-nodes-base.stickyNote",
 			"typeVersion": 1,
 			"position": [
-				1300,
-				380
+				1260,
+				460
 			]
 		}
 	],
