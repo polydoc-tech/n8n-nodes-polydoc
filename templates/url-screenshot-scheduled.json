@@ -161,13 +161,13 @@
 			"typeVersion": 1,
 			"position": [
 				1280,
-				520
+				560
 			]
 		},
 		{
 			"parameters": {
 				"content": "## Website change monitor with screenshots\n\n**What it does:** Polls a web page on a schedule, detects whether its content changed since the last run, and captures a full-page PolyDoc screenshot **only when it changed**, so you never spend a screenshot on an unchanged page. The snapshot is emailed to you.\n\n**Who it's for:** Anyone tracking competitor pages, pricing, docs, or status pages who wants a visual record of every change.\n\n### Setup\n1. Set the **url** to watch in the *Settings* node.\n2. Add your **PolyDoc API** credential on *Screenshot page* (get a key at dashboard.polydoc.tech).\n3. Add an **SMTP** credential on *Email screenshot*, or swap it for Slack / S3 / Google Drive.\n\nA manual test always counts as a first run (changed), so the screenshot branch runs right away. Change state then persists between scheduled runs.\n\nStart free: https://polydoc.tech/?utm_source=n8n&utm_medium=template&utm_campaign=screenshot",
-				"height": 320,
+				"height": 250,
 				"width": 1000
 			},
 			"id": "d9999999-9999-4999-8999-999999999999",
@@ -230,8 +230,8 @@
 		{
 			"parameters": {
 				"content": "## Nothing changed\n\nNo screenshot is taken. The run ends quietly.",
-				"height": 180,
-				"width": 260,
+				"height": 220,
+				"width": 300,
 				"color": 6
 			},
 			"id": "dd444444-4444-4444-8444-444444444444",
