@@ -53,6 +53,8 @@ function isPlainObject(value: unknown): value is IDataObject {
 export function mergeDeep(target: IDataObject, source: IDataObject): IDataObject {
 	const out: IDataObject = { ...target };
 	for (const [key, value] of Object.entries(source)) {
+		// The advanced JSON is user-supplied; skip prototype-pollution keys.
+		if (key === '__proto__' || key === 'constructor' || key === 'prototype') continue;
 		if (isPlainObject(value) && isPlainObject(out[key])) {
 			out[key] = mergeDeep(out[key] as IDataObject, value);
 		} else {
