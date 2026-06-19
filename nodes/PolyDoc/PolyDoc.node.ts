@@ -437,7 +437,7 @@ export class PolyDoc implements INodeType {
 						name: 'advancedOptions',
 						type: 'json',
 						default: '{}',
-						description: 'Raw fields deep-merged into the request body for any API option not exposed above (e.g. pdf.watermark, pdf.pdfa, pdf.ua, render, request)',
+						description: 'Raw fields deep-merged into the request body for any API option not exposed above (e.g. pdf.watermark, pdf.pdfa, pdf.pdfua, render, request)',
 					},
 				],
 			},
