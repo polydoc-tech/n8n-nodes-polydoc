@@ -161,14 +161,14 @@
 			"typeVersion": 1,
 			"position": [
 				1280,
-				560
+				700
 			]
 		},
 		{
 			"parameters": {
-				"content": "## Website change monitor with screenshots\n\n**What it does:** Polls a web page on a schedule, detects whether its content changed since the last run, and captures a full-page PolyDoc screenshot **only when it changed**, so you never spend a screenshot on an unchanged page. The snapshot is emailed to you.\n\n**Who it's for:** Anyone tracking competitor pages, pricing, docs, or status pages who wants a visual record of every change.\n\n### Setup\n1. Set the **url** to watch in the *Settings* node.\n2. Add your **PolyDoc API** credential on *Screenshot page* (get a key at dashboard.polydoc.tech).\n3. Add an **SMTP** credential on *Email screenshot*, or swap it for Slack / S3 / Google Drive.\n\nA manual test always counts as a first run (changed), so the screenshot branch runs right away. Change state then persists between scheduled runs.\n\nStart free: https://polydoc.tech",
-				"height": 250,
-				"width": 1000
+				"content": "## Website change monitor with screenshots\n\n**What it does:** Polls a web page on a schedule, detects whether its content changed since the last run, and captures a full-page PolyDoc screenshot **only when it changed**, so you never spend a screenshot on an unchanged page. The snapshot is emailed to you.\n\n**Who it's for:** Anyone tracking competitor pages, pricing, docs, or status pages who wants a visual record of every change.\n\n### Setup\n1. Set the **url** to watch in the *Settings* node.\n2. Add your **PolyDoc API** credential on *Screenshot page* (free key at dashboard.polydoc.tech).\n3. Add an **SMTP** credential on *Email screenshot*, or swap it for Slack / S3 / Google Drive.\n\nStart free: https://polydoc.tech",
+				"height": 360,
+				"width": 1380
 			},
 			"id": "d9999999-9999-4999-8999-999999999999",
 			"name": "Read me first",
@@ -176,7 +176,7 @@
 			"typeVersion": 1,
 			"position": [
 				200,
-				-180
+				-260
 			]
 		},
 		{
@@ -200,7 +200,7 @@
 				"content": "## 2. Detect a real change\n\nFetch the page, strip scripts, styles and whitespace, hash it, and compare to the last run (stored in workflow static data). Only a genuine content change continues.",
 				"height": 260,
 				"width": 620,
-				"color": 5
+				"color": 4
 			},
 			"id": "db222222-2222-4222-8222-222222222222",
 			"name": "Section: Detect",
@@ -216,7 +216,7 @@
 				"content": "## 3. Capture & send\n\nPolyDoc renders a full-page PNG of the changed page, which is emailed as an attachment.",
 				"height": 260,
 				"width": 420,
-				"color": 7
+				"color": 4
 			},
 			"id": "dc333333-3333-4333-8333-333333333333",
 			"name": "Section: Capture",
@@ -229,18 +229,82 @@
 		},
 		{
 			"parameters": {
-				"content": "## Nothing changed\n\nNo screenshot is taken. The run ends quietly.",
-				"height": 220,
-				"width": 300,
-				"color": 6
+				"content": "**Set the URL** you want to watch here.",
+				"height": 110,
+				"width": 180,
+				"color": 7
 			},
-			"id": "dd444444-4444-4444-8444-444444444444",
-			"name": "Section: No change",
+			"id": "de555555-5555-4555-8555-555555555555",
+			"name": "Setup: URL",
 			"type": "n8n-nodes-base.stickyNote",
 			"typeVersion": 1,
 			"position": [
-				1260,
-				460
+				400,
+				470
+			]
+		},
+		{
+			"parameters": {
+				"content": "First run and every manual test count as a change, so the screenshot branch runs right away. State then persists between scheduled runs.",
+				"height": 130,
+				"width": 380,
+				"color": 7
+			},
+			"id": "df666666-6666-4666-8666-666666666666",
+			"name": "Note: first run",
+			"type": "n8n-nodes-base.stickyNote",
+			"typeVersion": 1,
+			"position": [
+				660,
+				470
+			]
+		},
+		{
+			"parameters": {
+				"content": "**Add your PolyDoc API credential.** Free key at dashboard.polydoc.tech",
+				"height": 110,
+				"width": 190,
+				"color": 7
+			},
+			"id": "e0777777-7777-4777-8777-777777777777",
+			"name": "Setup: PolyDoc key",
+			"type": "n8n-nodes-base.stickyNote",
+			"typeVersion": 1,
+			"position": [
+				1240,
+				470
+			]
+		},
+		{
+			"parameters": {
+				"content": "**Add an SMTP credential**, or swap this node for Slack / S3 / Google Drive.",
+				"height": 110,
+				"width": 210,
+				"color": 7
+			},
+			"id": "e1888888-8888-4888-8888-888888888888",
+			"name": "Setup: email",
+			"type": "n8n-nodes-base.stickyNote",
+			"typeVersion": 1,
+			"position": [
+				1450,
+				470
+			]
+		},
+		{
+			"parameters": {
+				"content": "**Nothing changed.** No screenshot is taken, the run ends quietly.",
+				"height": 110,
+				"width": 250,
+				"color": 7
+			},
+			"id": "e2999999-9999-4999-8999-999999999999",
+			"name": "Note: no change",
+			"type": "n8n-nodes-base.stickyNote",
+			"typeVersion": 1,
+			"position": [
+				1420,
+				700
 			]
 		}
 	],
