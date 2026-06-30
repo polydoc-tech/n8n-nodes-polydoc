@@ -59,8 +59,8 @@
 		},
 		{
 			"parameters": {
-				"content": "## Invoice PDF from a saved template\n\n**What it does:** Fills a saved PolyDoc template with your invoice data and returns a branded PDF you can email or store. The workflow ships with sample data pinned on the trigger, so you can run it right away.\n\n**Who it's for:** Anyone generating invoices, quotes, or receipts from structured data who wants a consistent layout managed in one place.\n\n### Setup\n1. Add your **PolyDoc API** credential on the *Render invoice PDF* node (free key at dashboard.polydoc.tech).\n2. Replace **YOUR_TEMPLATE_ID** with a template you saved in PolyDoc.\n3. Add an **SMTP** credential on *Email invoice*, or swap it for Gmail / Slack / S3.\n\nStart free: https://polydoc.tech",
-				"height": 360,
+				"content": "## Invoice PDF from a saved template\n\n**What it does:** Fills a saved PolyDoc template with your invoice data and returns a branded PDF you can email or store. The workflow ships with sample data pinned on the trigger, so you can run it right away.\n\n**Who it's for:** Anyone generating invoices, quotes, or receipts from structured data who wants a consistent layout managed in one place.\n\n### Setup\n1. Add your **PolyDoc API** credential on the *Render invoice PDF* node (free key at dashboard.polydoc.tech).\n2. Replace **YOUR_TEMPLATE_ID** with a template you saved in PolyDoc.\n3. Add an **SMTP** credential on *Email invoice*, or swap it for Gmail / Slack / S3.\n\n### Customize\nEdit the template, the input field names, or the email text to match your billing process.\n\nStart free: https://polydoc.tech",
+				"height": 420,
 				"width": 980
 			},
 			"id": "a4444444-4444-4444-8444-444444444444",
