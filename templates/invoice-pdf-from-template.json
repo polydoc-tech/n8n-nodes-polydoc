@@ -13,7 +13,7 @@
 			"type": "n8n-nodes-base.webhook",
 			"typeVersion": 2,
 			"position": [
-				240,
+				272,
 				320
 			],
 			"webhookId": "polydoc-invoice"
@@ -48,7 +48,7 @@
 			"type": "n8n-nodes-base.if",
 			"typeVersion": 2.2,
 			"position": [
-				460,
+				512,
 				320
 			]
 		},
@@ -62,7 +62,7 @@
 			"type": "n8n-nodes-base.code",
 			"typeVersion": 2,
 			"position": [
-				700,
+				848,
 				320
 			]
 		},
@@ -87,7 +87,7 @@
 			"type": "n8n-nodes-polydoc.polyDoc",
 			"typeVersion": 1,
 			"position": [
-				940,
+				1120,
 				320
 			]
 		},
@@ -107,8 +107,8 @@
 			"type": "n8n-nodes-base.emailSend",
 			"typeVersion": 2.1,
 			"position": [
-				1160,
-				280
+				1376,
+				304
 			]
 		},
 		{
@@ -121,8 +121,8 @@
 			"type": "n8n-nodes-base.respondToWebhook",
 			"typeVersion": 1.1,
 			"position": [
-				1160,
-				440
+				1376,
+				432
 			]
 		},
 		{
@@ -138,30 +138,30 @@
 			"type": "n8n-nodes-base.respondToWebhook",
 			"typeVersion": 1.1,
 			"position": [
-				460,
-				540
+				592,
+				608
 			]
 		},
 		{
 			"parameters": {
 				"content": "## Invoice PDF from a purchase, using a saved template\n\n**What it does:** Turns an incoming order into a branded PDF invoice. It computes line totals, VAT and the grand total, renders a PDF from a template you manage in PolyDoc, emails it to the customer, and returns it on the webhook response. The invoice design lives in your PolyDoc dashboard, so you can restyle it without touching this workflow.\n\n**Who it's for:** Anyone billing customers from a store, checkout, CRM or app that can POST an order.\n\n### Setup\n1. Add your **PolyDoc API** credential on the *Render invoice PDF* node (free key at dashboard.polydoc.tech).\n2. Replace **YOUR_TEMPLATE_ID** with an invoice template you saved in PolyDoc.\n3. Add an **SMTP** credential on *Email invoice*, or swap it for Gmail / Slack / S3.\n\n### Customize\nPoint the webhook at your store or checkout, adjust the tax rate, or edit the totals logic in *Build invoice* to match how you bill.\n\nStart free: https://polydoc.tech",
-				"height": 460,
-				"width": 1120
+				"height": 380,
+				"width": 1420
 			},
 			"id": "d8888888-8888-4888-8888-888888888888",
 			"name": "Read me first",
 			"type": "n8n-nodes-base.stickyNote",
 			"typeVersion": 1,
 			"position": [
-				200,
-				-300
+				208,
+				-256
 			]
 		},
 		{
 			"parameters": {
-				"content": "## 1. Receive & validate\n\nAn order arrives on the webhook (a sample is pinned so you can run it now). *Valid order?* checks it has line items and a customer email before billing. Incomplete orders get a 422 response.",
-				"height": 480,
-				"width": 420,
+				"content": "## 1. Receive & validate\n\nAn order arrives on the webhook and is checked before billing.",
+				"height": 380,
+				"width": 540,
 				"color": 4
 			},
 			"id": "d9999999-9999-4999-8999-999999999999",
@@ -169,15 +169,15 @@
 			"type": "n8n-nodes-base.stickyNote",
 			"typeVersion": 1,
 			"position": [
-				200,
-				180
+				208,
+				160
 			]
 		},
 		{
 			"parameters": {
-				"content": "## 2. Build invoice\n\nComputes line totals, subtotal, VAT and the grand total, then shapes the data for your template.",
-				"height": 480,
-				"width": 200,
+				"content": "## 2. Build invoice\n\nTotals, VAT and the grand total are computed here.",
+				"height": 380,
+				"width": 280,
 				"color": 4
 			},
 			"id": "da000000-0000-4000-8000-000000000001",
@@ -185,15 +185,15 @@
 			"type": "n8n-nodes-base.stickyNote",
 			"typeVersion": 1,
 			"position": [
-				660,
-				180
+				768,
+				160
 			]
 		},
 		{
 			"parameters": {
-				"content": "## 3. Render & deliver\n\nPolyDoc fills your saved template and returns a PDF, emailed to the customer and returned on the webhook response.",
-				"height": 480,
-				"width": 440,
+				"content": "## 3. Render & deliver\n\nPolyDoc renders the PDF, then emails and returns it.",
+				"height": 412,
+				"width": 560,
 				"color": 4
 			},
 			"id": "da000000-0000-4000-8000-000000000002",
@@ -201,15 +201,15 @@
 			"type": "n8n-nodes-base.stickyNote",
 			"typeVersion": 1,
 			"position": [
-				880,
-				180
+				1072,
+				160
 			]
 		},
 		{
 			"parameters": {
 				"content": "**Sample order is pinned here.** Point your store, checkout or CRM webhook at this URL to invoice real purchases.",
-				"height": 90,
-				"width": 200,
+				"height": 136,
+				"width": 240,
 				"color": 7
 			},
 			"id": "da000000-0000-4000-8000-000000000003",
@@ -217,15 +217,31 @@
 			"type": "n8n-nodes-base.stickyNote",
 			"typeVersion": 1,
 			"position": [
-				230,
-				460
+				208,
+				560
+			]
+		},
+		{
+			"parameters": {
+				"content": "**Invalid orders** return a 422 with a message listing what is missing.",
+				"height": 110,
+				"width": 330,
+				"color": 7
+			},
+			"id": "da000000-0000-4000-8000-000000000006",
+			"name": "Note: reject",
+			"type": "n8n-nodes-base.stickyNote",
+			"typeVersion": 1,
+			"position": [
+				512,
+				752
 			]
 		},
 		{
 			"parameters": {
 				"content": "**Add your PolyDoc API credential** and set **Template ID** to an invoice template you saved at dashboard.polydoc.tech",
-				"height": 90,
-				"width": 240,
+				"height": 152,
+				"width": 260,
 				"color": 7
 			},
 			"id": "da000000-0000-4000-8000-000000000004",
@@ -233,15 +249,15 @@
 			"type": "n8n-nodes-base.stickyNote",
 			"typeVersion": 1,
 			"position": [
-				910,
-				460
+				1040,
+				592
 			]
 		},
 		{
 			"parameters": {
 				"content": "**Add an SMTP credential**, or swap this node for Gmail / Slack / S3.",
-				"height": 90,
-				"width": 150,
+				"height": 120,
+				"width": 250,
 				"color": 7
 			},
 			"id": "da000000-0000-4000-8000-000000000005",
@@ -249,8 +265,8 @@
 			"type": "n8n-nodes-base.stickyNote",
 			"typeVersion": 1,
 			"position": [
-				1150,
-				560
+				1376,
+				592
 			]
 		}
 	],
