@@ -127,7 +127,7 @@ export function buildRequestBody(params: PolyDocParams): PolyDocRequest {
 	if (params.tag) body.tag = params.tag;
 	if (typeof params.timeout === 'number' && params.timeout > 0) body.timeout = params.timeout;
 
-	if (params.operation === 'pdf') {
+	if (params.operation === 'pdf' || params.operation === 'einvoice') {
 		const layout = params.pdfOptions ? buildLayout(params.pdfOptions) : undefined;
 		if (layout) body.layout = layout;
 	}

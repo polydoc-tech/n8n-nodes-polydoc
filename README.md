@@ -6,7 +6,7 @@ One node, three operations:
 
 - **HTML/URL to PDF** - layout, margins, page format, page ranges, bookmarks, accessible/tagged PDFs.
 - **Capture Screenshot** - PNG / JPEG / WebP, full page, viewport and device-pixel-ratio control.
-- **Generate E-Invoice** - Factur-X or ZUGFeRD, profiles from `minimum` to `extended`.
+- **Generate E-Invoice** - Factur-X or ZUGFeRD, profiles from `minimum` to `extended`, with the same PDF options (for example page format A4).
 
 Content can come from a **URL**, an inline **HTML** string, or a saved **template** (with Liquid `templateData`). The result is returned as binary data by default, or uploaded to your **cloud storage** (presigned URL) or delivered to a **webhook**.
 

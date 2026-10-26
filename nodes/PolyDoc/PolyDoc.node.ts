@@ -183,7 +183,7 @@ export class PolyDoc implements INodeType {
 				type: 'collection',
 				placeholder: 'Add Option',
 				default: {},
-				displayOptions: { show: { operation: ['pdf'] } },
+				displayOptions: { show: { operation: ['pdf', 'einvoice'] } },
 				options: [
 					{
 						displayName: 'Landscape',
@@ -475,15 +475,16 @@ export class PolyDoc implements INodeType {
 					params.templateData = parseJson(this.getNodeParameter('templateData', i, '{}'));
 				}
 
-				if (operation === 'pdf') {
+				if (operation === 'pdf' || operation === 'einvoice') {
 					params.pdfOptions = this.getNodeParameter('pdfOptions', i, {}) as IDataObject;
-				} else if (operation === 'screenshot') {
+				}
+				if (operation === 'screenshot') {
 					params.screenshotOptions = this.getNodeParameter(
 						'screenshotOptions',
 						i,
 						{},
 					) as IDataObject;
-				} else {
+				} else if (operation === 'einvoice') {
 					params.eInvoiceStandard = this.getNodeParameter('eInvoiceStandard', i) as
 						| 'facturx'
 						| 'zugferd';
