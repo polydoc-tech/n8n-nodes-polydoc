@@ -105,6 +105,25 @@ describe('buildRequestBody', () => {
 		});
 	});
 
+	it('E-Invoice carries PDF options as a layout next to the eInvoice payload', () => {
+		const r = buildRequestBody(
+			base({
+				operation: 'einvoice',
+				eInvoiceStandard: 'zugferd',
+				eInvoiceProfile: 'en16931',
+				invoice: { number: 'INV-1' },
+				pdfOptions: { format: 'A4' },
+			}),
+		);
+		expect(r.body.layout).toEqual({ format: 'A4' });
+		expect(r.body.eInvoice).toMatchObject({ standard: 'zugferd', profile: 'en16931' });
+	});
+
+	it('Screenshot ignores PDF options', () => {
+		const r = buildRequestBody(base({ operation: 'screenshot', pdfOptions: { format: 'A4' } }));
+		expect(r.body).not.toHaveProperty('layout');
+	});
+
 	it('Cloud Storage delivery is non-binary and sets cloudStorage', () => {
 		const r = buildRequestBody(
 			base({ delivery: { mode: 'cloudStorage', presignedUrl: 'https://put.example/abc' } }),
