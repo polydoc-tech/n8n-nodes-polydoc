@@ -34,6 +34,7 @@ Every operation has an **Additional Fields → Advanced (JSON)** escape hatch th
 npm install
 npm run build      # tsc + copy icons into dist/
 npm run lint       # eslint-plugin-n8n-nodes-base
+npm run typecheck  # tsc over nodes/, credentials/ and test/
 npm test           # unit tests (request body builder)
 ```
 
