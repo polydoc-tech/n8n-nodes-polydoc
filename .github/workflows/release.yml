@@ -96,8 +96,8 @@ jobs:
           # No dependency cache in a publishing job: a poisoned cache would ship.
           package-manager-cache: false
 
-      # The checks that need no install come first: a refused tag fails in seconds, and no
-      # dependency's install script has run in a job that can mint a publish token.
+      # The checks that need no install come first, so a refused tag fails in seconds, before
+      # any dependency's install script runs.
 
       - name: package.json version matches the tag
         run: |
