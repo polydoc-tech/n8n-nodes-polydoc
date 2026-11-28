@@ -92,7 +92,7 @@ jobs:
         with:
           # Not 26: isolated-vm, a native module under the n8n-workflow dev dependency, does
           # not build there. npm 12 needs 24.15 or later on this line.
-          node-version: '24'
+          node-version: '26'
           # No dependency cache in a publishing job: a poisoned cache would ship.
           package-manager-cache: false
 
